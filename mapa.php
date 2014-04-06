@@ -129,7 +129,7 @@ var infowindow = new google.maps.InfoWindow(
     size: new google.maps.Size(0,0)
   });
     
-function createMarker(map, latlng, label, html, color, drag){
+function createMarker(map, latlng, label, html, color, drag, num){
     var contentString = label;
     var marker = new google.maps.Marker({
         position: latlng,
@@ -146,8 +146,8 @@ function createMarker(map, latlng, label, html, color, drag){
         });
 
     google.maps.event.addListener(marker, 'click', function() {
-	        $('#firstModal').foundation('reveal', 'open');
-			$('#firstModal').foundation('reveal', 'close');
+	        $('#firstModal'.concat(num) ).foundation('reveal', 'open');
+			$('#firstModal'.concat(num) ).foundation('reveal', 'close');
         });
 }
 var beaches = [
@@ -155,13 +155,17 @@ var beaches = [
 
 	if(isset($_GET['filtro'])){
 		$TQuery = mysql_query('SELECT '.$_GET['filtro'].' FROM eventos ORDER BY id ASC');
+		$num = 0;
 		while($rowQuery = mysql_fetch_array($TQuery)){
-			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", \"".$rowQuery['tipo']."\"],";
+			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", '".$rowQuery['tipo']."', ".$num."],";
+			$num++;
 		}	
 	}else{
 		$TQuery = mysql_query ('SELECT * FROM eventos ORDER BY id ASC');
+		$num = 0;
 		while($rowQuery = mysql_fetch_array($TQuery)){
-			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", \"".$rowQuery['tipo']."\"],";
+			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", '".$rowQuery['tipo']."', ".$num."],";
+			$num++;
 		}	
 	}
 	
@@ -173,13 +177,13 @@ function setMarkers(map, locations) {
   for (var i = 0; i < locations.length; i++) {
     var beach = locations[i];
     var myLatLng = new google.maps.LatLng(beach[1], beach[2]);
-    var marker = createMarker(map,myLatLng,beach[0],beach[0],beach[3], false);
+    var marker = createMarker(map,myLatLng,beach[0],beach[0],beach[3], false, beach[4]);
   }
 }
 function setMarkersUsr(map, latitud, longitud) {
 //function createMarker(map, latlng, label, html, color) {
 //	['Maroubra Beach', -33.950198, 151.259302, "orange"]
-    var marker = createMarker(map,new google.maps.LatLng(latitud, longitud),"Mi Ubicaci&oacute;n Actual","Mi Ubicaci&oacute;n Actual","punteroMigrante",false);
+    var marker = createMarker(map,new google.maps.LatLng(latitud, longitud),"Mi Ubicaci&oacute;n Actual","Mi Ubicaci&oacute;n Actual","punteroMigrante",false, "usr");
 }
 //]]>
 </script>
@@ -191,22 +195,37 @@ function setMarkersUsr(map, latitud, longitud) {
     
 <div id="map_canvas" style="width: 100%; height: 100%;"></div>
 
+<?php
+	if(isset($_GET['filtro'])){
+		$TQuery = mysql_query('SELECT '.$_GET['filtro'].' FROM eventos ORDER BY id ASC');
+	}else{
+		$TQuery = mysql_query ('SELECT * FROM eventos ORDER BY id ASC');
+	}
+	$num = 0;
+	while($rowQuery = mysql_fetch_array($TQuery)){
+		$video = explode("https://www.youtube.com/watch?v=", $rowQuery['video']);
+		echo '
+		<div id="firstModal'.$num.'" class="reveal-modal close" data-reveal="" style="visibility: invisible; display: block; opacity: 1;">
+		  	<div class="large-8 column">
+		  		<iframe width="661" height="355" src="//www.youtube.com/embed/'.$video[1].'" frameborder="0" allowfullscreen></iframe>
+		    </div>
+		    <div class="large-4 column"> 
+		    <h3>'.$rowQuery['titulo'].'</h3>   
+			<p>
+			'.$rowQuery['descripcion'].'
+			'.$rowQuery['tipo'].'
+			'.$rowQuery['fecha'].'
+			'.$rowQuery['meta'].'
+			'.$rowQuery['recaudado'].'
 
-<div id="firstModal" class="reveal-modal close" data-reveal="" style="visibility: invisible; display: block; opacity: 1;">
-  	<div class="large-8 column">
-    	<iframe src="//player.vimeo.com/video/86152071" width="661" height="355" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p>
-       
-    </div>
-    <div class="large-4 column"> 
-    <h3>NoteSick: “Tu tocas, Él escribe”</h3>   
-	<p>
-	NoteSick se trata de permitirle a cualquier músico en el mundo, ya sea un guitarrista, un baterista o hasta un cantante, 	digitalizar su música fácilmente y obtener los miles de beneficios por hacerlo. A través de tecnología de reconocimiento de voz puedes cantar, chiflar o tocar cualquier instrumento en frente de tu computadora y el resultado será una pista MIDI, nota por nota, de lo que tocaste. Así de simple. 
-	</p>
- 	<a href="http://vimeo.com/86152071">NoteSick "Tú tocas, Él escribe"</a> from <a href="http://vimeo.com/aldonewberry">Aldo 				Newberry Santos</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
-    </div>
-  	<a class="close-reveal-modal">×</a>
-</div>
-
+			</p>
+		 	<a href="http://vimeo.com/86152071">NoteSick "Tú tocas, Él escribe"</a> from <a href="http://vimeo.com/aldonewberry">Aldo Newberry Santos</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+		    </div>
+		  	<a class="close-reveal-modal">×</a>
+		</div>';
+		$num++;	
+	}
+?>
 
 <script src="./JsGoogle/urchin.js" type="text/javascript"></SCRIPT>
  
