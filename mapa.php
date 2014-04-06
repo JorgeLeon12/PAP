@@ -1,5 +1,7 @@
 <?php
 include 'sql.php';
+header('Content-Type: text/html; charset=UTF-8'); 
+ini_set('default_charset','utf8');
 ?>
 <!DOCTYPE HTML public "-//W3C//DTD HTML 4.0 Transitional//EN">
 <!-- saved from url=(0068)http://www.geocodezip.com/v3_markers_normal_colored_infowindows.html -->
@@ -120,10 +122,10 @@ function getMarkerImage(iconColor) {
       new google.maps.Size(32, 37),
       new google.maps.Point(0,0),
       new google.maps.Point(16, 37));
-  var iconShape = {
+  /*var iconShape = {
       coord: [16,4,16,32,2,16,28,15,27,21,21,25,19,28,6,13,11,8,20,5,24,9,23,13,19,13,17,8,14,13,13,18,14,21,13,25,12,27,7,21,5,19,10,14,8,16,18,21,23,19,16,16,16,24,8,24,24,25,19,16,21,8],
       type: 'poly'
-  };
+  };*/
 var infowindow = new google.maps.InfoWindow(
   { 
     size: new google.maps.Size(0,0)
@@ -136,7 +138,7 @@ function createMarker(map, latlng, label, html, color, drag, num){
         map: map,
         shadow: iconShadow,
         icon: getMarkerImage(color),
-        shape: iconShape,
+        //shape: iconShape,
 		
 		draggable: drag,
 	    animation: google.maps.Animation.DROP
