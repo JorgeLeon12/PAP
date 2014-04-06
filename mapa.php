@@ -207,22 +207,27 @@ function setMarkersUsr(map, latitud, longitud) {
 		$video = explode("https://www.youtube.com/watch?v=", $rowQuery['video']);
 		echo '
 		<div id="firstModal'.$num.'" class="reveal-modal close" data-reveal="" style="visibility: invisible; display: block; opacity: 1;">
-		  	<div class="large-8 column">
-		  		<iframe width="661" height="355" src="//www.youtube.com/embed/'.$video[1].'" frameborder="0" allowfullscreen></iframe>
+		  	<div class="large-7 column">
+		  		<iframe width="562" height="302" src="//www.youtube.com/embed/'.$video[1].'" frameborder="0" allowfullscreen></iframe>
 		    </div>
-		    <div class="large-4 column"> 
-		    <h3>'.$rowQuery['titulo'].'</h3>   
-			<p>
-			'.$rowQuery['descripcion'].'
-			'.$rowQuery['tipo'].'
-			'.$rowQuery['fecha'].'
-			'.$rowQuery['meta'].'
-			'.$rowQuery['recaudado'].'
+		    <div class="large-5 column"> 
+		    <h3><font color="#2BA6CB">'.$rowQuery['titulo'].'</font></h3>   
+			<b>Categoría:</b> '.ucfirst($rowQuery['tipo']).'</br>
+			<b>Fecha:</b> '.$rowQuery['fecha'].' </br>
+			<b>Meta:</b> $'.$rowQuery['meta'].'</br>
+			<b>Recaudado:</b> $'.$rowQuery['recaudado'].'
+			<hr></hr>
+			<b>Descripción:</b>
+		 	'.$rowQuery['descripcion'].'
+		 	<hr></hr>
+		 	<div align="center" >
+		 		<button type="buttons" class="button tiny">¡Ayuda ahora!</button>
+		 	</div>
 
-			</p>
-		 	<a href="http://vimeo.com/86152071">NoteSick "Tú tocas, Él escribe"</a> from <a href="http://vimeo.com/aldonewberry">Aldo Newberry Santos</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+		 	<img class="pd-img" src="http://pics.ebaystatic.com/aw/pics/logos/logoPayPal_51x14.gif" alt="PayPal" border="0">
+		 	<img src="http://www.elwebmaster.com/wp-content/uploads/2008/04/pixel_set.jpg">
 		    </div>
-		  	<a class="close-reveal-modal">×</a>
+		  	<a class="close-reveal-modal">×</a>		  	
 		</div>';
 		$num++;	
 	}
