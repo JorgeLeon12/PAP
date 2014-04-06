@@ -146,15 +146,15 @@ function createMarker(map, latlng, label, html, color, drag){
         });
 
     google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(contentString); 
-        infowindow.open(map,marker);
+	        $('#firstModal').foundation('reveal', 'open');
+			$('#firstModal').foundation('reveal', 'close');
         });
 }
 var beaches = [
 <?php
 
-	if(isset($_GET['tipoMapa']) && $_GET['tipoMapa'] == '1'){
-		$OMG2 = mysql_query('SELECT * FROM checkin WHERE identificador = \''.$_GET['ID'].'\' ORDER BY id ASC');
+	if(isset($_GET['filtro'])){
+		$OMG2 = mysql_query('SELECT '.$_GET['filtro'].' FROM eventos ORDER BY id ASC');
 		while($OMG = mysql_fetch_array($OMG2)){
 			echo "['<b>".$OMG['titulo']."</b><br>".$OMG['descripcion']."', ".$OMG['latitud'].", ".$OMG['longitud'].", \"punteroGeo\"],";
 		}	
@@ -185,12 +185,43 @@ function setMarkersUsr(map, latitud, longitud) {
 </script>
  
 <body style="margin: 0px; padding: 0px;" onLoad="localizar()"><!--initialize()-->
+	
+
+
+    
 <div id="map_canvas" style="width: 100%; height: 100%;"></div>
+
+
+<div id="firstModal" class="reveal-modal close" data-reveal="" style="visibility: invisible; display: block; opacity: 1;">
+  	<div class="large-8 column">
+    	<iframe src="//player.vimeo.com/video/86152071" width="661" height="355" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p>
+       
+    </div>
+    <div class="large-4 column"> 
+    <h3>NoteSick: “Tu tocas, Él escribe”</h3>   
+	<p>
+	NoteSick se trata de permitirle a cualquier músico en el mundo, ya sea un guitarrista, un baterista o hasta un cantante, 	digitalizar su música fácilmente y obtener los miles de beneficios por hacerlo. A través de tecnología de reconocimiento de voz puedes cantar, chiflar o tocar cualquier instrumento en frente de tu computadora y el resultado será una pista MIDI, nota por nota, de lo que tocaste. Así de simple. 
+	</p>
+ 	<a href="http://vimeo.com/86152071">NoteSick "Tú tocas, Él escribe"</a> from <a href="http://vimeo.com/aldonewberry">Aldo 				Newberry Santos</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+    </div>
+  	<a class="close-reveal-modal">×</a>
+</div>
+
+
 <script src="./JsGoogle/urchin.js" type="text/javascript"></SCRIPT>
  
 <script type="text/javascript">
 _uacct = "UA-162157-1";
 urchinTracker();
 </script>
+
+
+	<link rel="stylesheet" href="css/foundation.css" />
+	<script src="js/vendor/modernizr.js"></script>  
+	<script src="js/vendor/jquery.js"></script>
+	<script src="js/foundation.min.js"></script>
+	<script>
+	$(document).foundation();
+	</script>
 </body>
 </html>
