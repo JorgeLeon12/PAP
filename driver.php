@@ -3,7 +3,7 @@ class dbDriver{
 	private $conexion;
 	
 	function __construct(){
-	    $this->conexion = mysqli_connect("localhost","creators","E0xJ60qu5l","creators_social");
+	    $this->conexion = mysqli_connect("localhost","root","","pap");
 	    if (mysqli_connect_errno())
 	  	{
 	  		echo "Error while connecting the database" . mysqli_connect_error();
@@ -15,8 +15,8 @@ class dbDriver{
 		mysqli_close($this->conexion);
 	}
 
-	function addTag($user_id, $titulo, $descripcion, $latitud, $longitud, $tipo, $video, $meta, $fecha){
-		$query = mysqli_query($this->conexion, "INSERT INTO points (user_id, titulo, descripcion, latitud, longitud, tipo, video, meta, fecha) VALUES ('$user_id', '$titulo', '$descripcion', '$latitud', '$longitud', '$tipo', '$video', '$meta', '$fecha')");
+	function addTag($id, $titulo, $descripcion, $latitud, $longitud, $tipo, $video, $meta, $fecha){
+		$query = mysqli_query($this->conexion, "INSERT INTO points (id, titulo, descripcion, latitud, longitud, tipo, video, meta, fecha) VALUES ('$id', '$titulo', '$descripcion', '$latitud', '$longitud', '$tipo', '$video', '$meta', '$fecha')");
 	}
 	
 	function login($user, $password){
@@ -69,7 +69,7 @@ class dbDriver{
 	}
 
 	function getTags($username){
-		$query = mysqli_query($this->conexion, "SELECT * FROM points WHERE user_id='$username' order by id");
+		$query = mysqli_query($this->conexion, "SELECT * FROM points WHERE id='$username' order by id");
 		echo '<table class="table zebra-striped">';
 		echo "<thead><tr><th>#</th><th>Tag name</th><th>tipo</th><th>latitud</th><th>longitud</th><th>Edit</th><th>Delete</th></tr></thead>";
 		$i = 1;
@@ -99,7 +99,7 @@ class dbDriver{
 	}
 	
 	function getTagsByUser($id){
-		$sql_tag  = mysqli_query($this->conexion,"SELECT * FROM points where user_id='$id'");
+		$sql_tag  = mysqli_query($this->conexion,"SELECT * FROM points where id='$id'");
 		$sql_user = mysqli_query($this->conexion,"SELECT * FROM users where id='$id'");
 		$row_user = mysqli_fetch_array($sql_user);
 		$response = array();
