@@ -17,10 +17,6 @@ http-equiv="X-UA-Compatible">
 <style type="text/css">
 html, body { height: 100%; } 
 </style>
- 
- <?php
-echo "<script>alert('".$_GET['filtro']."')</script>"
- ?>
 
 <script type="text/javascript"> 
 //<![CDATA[
@@ -162,14 +158,14 @@ var beaches = [
 		$TQuery = mysql_query('SELECT * FROM eventos WHERE '.$_GET['filtro'].' ORDER BY id ASC');
 		$num = 0;
 		while($rowQuery = mysql_fetch_array($TQuery)){
-			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", '".$rowQuery['tipo']."', ".$num."],";
+			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", '".$rowQuery['clasificacion']."', ".$num."],";
 			$num++;
 		}	
 	}else{
 		$TQuery = mysql_query ('SELECT * FROM eventos ORDER BY id ASC');
 		$num = 0;
 		while($rowQuery = mysql_fetch_array($TQuery)){
-			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", '".$rowQuery['tipo']."', ".$num."],";
+			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", '".$rowQuery['clasificacion']."', ".$num."],";
 			$num++;
 		}	
 	}
