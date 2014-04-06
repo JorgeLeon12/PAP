@@ -153,7 +153,7 @@ function createMarker(map, latlng, label, html, color, drag, num){
 }
 var beaches = [
 <?php
-
+	mysql_query("SET NAMES 'utf8'");
 	if(isset($_GET['filtro'])){
 		$TQuery = mysql_query('SELECT * FROM eventos WHERE '.$_GET['filtro'].' ORDER BY id ASC');
 		$num = 0;
