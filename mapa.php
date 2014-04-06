@@ -154,14 +154,14 @@ var beaches = [
 <?php
 
 	if(isset($_GET['filtro'])){
-		$OMG2 = mysql_query('SELECT '.$_GET['filtro'].' FROM eventos ORDER BY id ASC');
-		while($OMG = mysql_fetch_array($OMG2)){
-			echo "['<b>".$OMG['titulo']."</b><br>".$OMG['descripcion']."', ".$OMG['latitud'].", ".$OMG['longitud'].", \"punteroGeo\"],";
+		$TQuery = mysql_query('SELECT '.$_GET['filtro'].' FROM eventos ORDER BY id ASC');
+		while($rowQuery = mysql_fetch_array($TQuery)){
+			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", \"".$rowQuery['tipo']."\"],";
 		}	
 	}else{
-		$OMG2 = mysql_query ('SELECT * FROM eventos ORDER BY id ASC');
-		while($OMG = mysql_fetch_array($OMG2)){
-			echo "['<b>".$OMG['titulo']."</b><br>".$OMG['descripcion']."', ".$OMG['latitud'].", ".$OMG['longitud'].", \"".$OMG['tipo']."\"],";
+		$TQuery = mysql_query ('SELECT * FROM eventos ORDER BY id ASC');
+		while($rowQuery = mysql_fetch_array($TQuery)){
+			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", \"".$rowQuery['tipo']."\"],";
 		}	
 	}
 	
