@@ -175,13 +175,13 @@ if(isset($_GET["submit"])){
                             <textarea id="descripcion" name="descripcion" style="resize:none" maxlength="1000" rows="4" value="<?php echo $descripcion ?>" class="input-block-level" placeholder="1000 caracteres"></textarea>
                         	
 							<label for="tipo"><br>Tipo</label>
-							<input type="text" id="tipo" name="tipo" value="" class="input-block-level">
+							<input type="text" id="tipo" name="tipo" value="<?php echo $tipo ?>" class="input-block-level">
 
                             <label for="meta"><br>Meta</label>
-                            <input type="text" id="meta" name="meta" value="" class="input-block-level">
+                            <input type="text" id="meta" name="meta" value="<?php echo $meta ?>" class="input-block-level">
 
                             <label for="fecha"><br>Fecha de expiracion</label>
-                            <input type="date" id="fecha" name="fecha" value="" class="input-block-level">
+                            <input type="date" id="fecha" name="fecha" value="<?php echo $fecha ?>" class="input-block-level">
 
                             <legend><br>Media data</legend>
 

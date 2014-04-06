@@ -13,10 +13,15 @@ if (isset($_GET["submit"])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="css/foundation.css" />
+                    <script src="js/vendor/modernizr.js"></script>    
     <meta charset="utf-8">
     
     <title>Login : PAP</title>
     
+
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -65,8 +70,68 @@ if (isset($_GET["submit"])) {
     </script>
 </head>
 <body>
-    <?php print_header_login(); ?>
-    <!--
+<div class="sticky">
+        <nav class="top-bar" data-topbar data-options="sticky_on: large">
+            <section class="top-bar-section">
+                <ul class="title-area" >
+                    <li class="name"><!-- Leave this empty --></li>
+                    <li>
+                        <a>  <img src="./img/logo.jpg" height="30px" width="30px"/> </a>
+                    </li>
+                    <li>
+                        <a href="./index.html"> 
+                            Pick A Partner</a></li>
+                        </ul>
+                        <ul class="left">
+                            <li class="has-dropdown">
+                                <a href="#">Noticias</a>
+                                <ul class="dropdown">
+                                    <li>
+                                        <a href="#">Local</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Nacional</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Mundial</a>
+                                    </li>
+                                </ul>                       
+                            </li>
+                            <li class="has-dropdown">
+                                <a href="#">Causas</a>
+                                <ul class="dropdown">
+                                    <li>
+                                        <a href="#">Fundaciones</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Eventos</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Empresas Sociales</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Otros</a>
+                                    </li>
+                                </ul>                       
+                            </li>
+                            <li>
+                                <a href="./mapa.html">Mapa</a>
+                            </li>
+                        </ul>     
+
+
+                        <ul class="right">
+                            <li class="has-dropdown">
+                                <ul class="right">
+                            <li >
+                                <a href="#">Registrarse</a>
+                            </li>
+                        </li>
+                    </ul>    
+                        </section>
+
+                    </nav>
+                </div>    <!--
     Comienza formulario de inicio de sesión.
     -->
 
