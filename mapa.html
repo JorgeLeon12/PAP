@@ -1,14 +1,14 @@
 <!doctype html>
 <html class="no-js" lang="en">
 
- <script> 
-    function changeIframeSrc(direccion) { 
-var url=direccion;
-document.getElementById('frameCambiante').src=url; 
-</script>
-} 
-
 <head>
+
+    <script> 
+    function changeIframeSrc(direccion) { 
+    var url=direccion;
+    document.getElementById('frameCambiante').src=url;}
+    </script>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Foundation | Welcome</title>
@@ -89,7 +89,7 @@ document.getElementById('frameCambiante').src=url;
         <a class="left-off-canvas-toggle menu-icon"><span></span></a>
       </section>
 
-      <section class="right tab-bar-section" data-options="sticky_on: large">
+      <section class="right tab-bar-section" data-options="sticky_on: larte">
         <a class="left-off-canvas-toggle">
         <h1 class="title">Filtros</h1>
     </a>
@@ -100,7 +100,7 @@ document.getElementById('frameCambiante').src=url;
     <aside class="left-off-canvas-menu">
       <ul class="off-canvas-list">
         <li><label>Empresas Sociales</label></li>
-        <li><a href="#" onclick="changeIframeSrc(./mapa.php?filtro=categoria="cultural");" >Cultura
+        <li><a href="#" onclick="changeIframeSrc('/mapa.ph?filtro=categoria=cultural')";>Cultura
         </a></li>
         <li><a href="#">Educación</a></li>
         <li><a href="#">Salud</a></li>
@@ -120,11 +120,7 @@ document.getElementById('frameCambiante').src=url;
 
     <section class="main-section">
            <div style="width:100%; height:100%">
-
-
-
-
-            <iframe id="frameCambiante" src="./mapa.php"  style="height:100%; width:100%"></iframe>
+            <iframe id="frameCambiante" src="./mapa.php" name="iframe_a" style="height:100%; width:100%"></iframe>
             <div/>
 
     </section>

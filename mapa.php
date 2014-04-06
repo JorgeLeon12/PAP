@@ -1,6 +1,5 @@
 <?php
 include 'sql.php';
-header('Content-Type: text/html; charset=UTF-8'); 
 ?>
 <!DOCTYPE HTML public "-//W3C//DTD HTML 4.0 Transitional//EN">
 <!-- saved from url=(0068)http://www.geocodezip.com/v3_markers_normal_colored_infowindows.html -->
@@ -29,7 +28,7 @@ function mapa(pos){
 	var contenedor = document.getElementById("map_canvas");
 	var latitud = pos.coords.latitude;
 	var longitud = pos.coords.longitude;
-	var precision = pos.coords.accuracy;
+	var precision = pos.coords.accuracy;//
 		
 	var centro = new google.maps.LatLng(latitud, longitud);
 	initialize(centro, latitud, longitud);
@@ -121,23 +120,23 @@ function getMarkerImage(iconColor) {
       new google.maps.Size(32, 37),
       new google.maps.Point(0,0),
       new google.maps.Point(16, 37));
-  /*var iconShape = {
+  var iconShape = {
       coord: [16,4,16,32,2,16,28,15,27,21,21,25,19,28,6,13,11,8,20,5,24,9,23,13,19,13,17,8,14,13,13,18,14,21,13,25,12,27,7,21,5,19,10,14,8,16,18,21,23,19,16,16,16,24,8,24,24,25,19,16,21,8],
       type: 'poly'
-  };*/
+  };
 var infowindow = new google.maps.InfoWindow(
   { 
     size: new google.maps.Size(0,0)
   });
     
-function createMarker(map, latlng, label, html, color, drag, num){
+function createMarker(map, latlng, label, html, color, drag){
     var contentString = label;
     var marker = new google.maps.Marker({
         position: latlng,
         map: map,
         shadow: iconShadow,
         icon: getMarkerImage(color),
-        //shape: iconShape,
+        shape: iconShape,
 		
 		draggable: drag,
 	    animation: google.maps.Animation.DROP
@@ -147,26 +146,22 @@ function createMarker(map, latlng, label, html, color, drag, num){
         });
 
     google.maps.event.addListener(marker, 'click', function() {
-	        $('#firstModal'.concat(num) ).foundation('reveal', 'open');
-			$('#firstModal'.concat(num) ).foundation('reveal', 'close');
+	        $('#firstModal').foundation('reveal', 'open');
+			$('#firstModal').foundation('reveal', 'close');
         });
 }
 var beaches = [
 <?php
 
 	if(isset($_GET['filtro'])){
-		$TQuery = mysql_query('SELECT * FROM eventos WHERE '.$_GET['filtro'].' ORDER BY id ASC');
-		$num = 0;
+		$TQuery = mysql_query('SELECT '.$_GET['filtro'].' FROM eventos ORDER BY id ASC');
 		while($rowQuery = mysql_fetch_array($TQuery)){
-			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", '".$rowQuery['tipo']."', ".$num."],";
-			$num++;
+			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", \"".$rowQuery['tipo']."\"],";
 		}	
 	}else{
 		$TQuery = mysql_query ('SELECT * FROM eventos ORDER BY id ASC');
-		$num = 0;
 		while($rowQuery = mysql_fetch_array($TQuery)){
-			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", '".$rowQuery['tipo']."', ".$num."],";
-			$num++;
+			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", \"".$rowQuery['tipo']."\"],";
 		}	
 	}
 	
@@ -178,13 +173,13 @@ function setMarkers(map, locations) {
   for (var i = 0; i < locations.length; i++) {
     var beach = locations[i];
     var myLatLng = new google.maps.LatLng(beach[1], beach[2]);
-    var marker = createMarker(map,myLatLng,beach[0],beach[0],beach[3], false, beach[4]);
+    var marker = createMarker(map,myLatLng,beach[0],beach[0],beach[3], false);
   }
 }
 function setMarkersUsr(map, latitud, longitud) {
 //function createMarker(map, latlng, label, html, color) {
 //	['Maroubra Beach', -33.950198, 151.259302, "orange"]
-    var marker = createMarker(map,new google.maps.LatLng(latitud, longitud),"Mi Ubicaci&oacute;n Actual","Mi Ubicaci&oacute;n Actual","punteroMigrante",false, "usr");
+    var marker = createMarker(map,new google.maps.LatLng(latitud, longitud),"Mi Ubicaci&oacute;n Actual","Mi Ubicaci&oacute;n Actual","punteroMigrante",false);
 }
 //]]>
 </script>
@@ -196,38 +191,22 @@ function setMarkersUsr(map, latitud, longitud) {
     
 <div id="map_canvas" style="width: 100%; height: 100%;"></div>
 
-<?php
-	if(isset($_GET['filtro'])){
-		$TQuery = mysql_query('SELECT * FROM eventos WHERE '.$_GET['filtro'].' ORDER BY id ASC');
-	}else{
-		$TQuery = mysql_query ('SELECT * FROM eventos ORDER BY id ASC');
-	}
-	$num = 0;
-	while($rowQuery = mysql_fetch_array($TQuery)){
-		$video = explode("https://www.youtube.com/watch?v=", $rowQuery['video']);
-		echo '
-		<div id="firstModal'.$num.'" class="reveal-modal close" data-reveal="" style="visibility: invisible; display: block; opacity: 1;">
-		  	<div class="large-8 column">
-		  		<iframe width="661" height="355" src="//www.youtube.com/embed/'.$video[1].'" frameborder="0" allowfullscreen></iframe>
-		    </div>
-		    <div class="large-4 column"> 
-		    <h3>'.$rowQuery['titulo'].'</h3>   
-			<p>
-			'.$rowQuery['descripcion'].'
-			'.$rowQuery['tipo'].'
-			'.$rowQuery['fecha'].'
-			'.$rowQuery['meta'].'
-			'.$rowQuery['recaudado'].'
 
-			</p>
-		 	<a href="http://vimeo.com/86152071">NoteSick "Tú tocas, Él escribe"</a> from <a href="http://vimeo.com/aldonewberry">Aldo Newberry Santos</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
-		    </div>
-		  	<a class="close-reveal-modal">×</a>
-		</div>';
-		$num++;	
-	}
+<div id="firstModal" class="reveal-modal close" data-reveal="" style="visibility: invisible; display: block; opacity: 1;">
+  	<div class="large-8 column">
+    	<iframe src="//player.vimeo.com/video/86152071" width="661" height="355" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p>
+       
+    </div>
+    <div class="large-4 column"> 
+    <h3>NoteSick: “Tu tocas, Él escribe”</h3>   
+	<p>
+	NoteSick se trata de permitirle a cualquier músico en el mundo, ya sea un guitarrista, un baterista o hasta un cantante, 	digitalizar su música fácilmente y obtener los miles de beneficios por hacerlo. A través de tecnología de reconocimiento de voz puedes cantar, chiflar o tocar cualquier instrumento en frente de tu computadora y el resultado será una pista MIDI, nota por nota, de lo que tocaste. Así de simple. 
+	</p>
+ 	<a href="http://vimeo.com/86152071">NoteSick "Tú tocas, Él escribe"</a> from <a href="http://vimeo.com/aldonewberry">Aldo 				Newberry Santos</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+    </div>
+  	<a class="close-reveal-modal">×</a>
+</div>
 
-?>
 
 <script src="./JsGoogle/urchin.js" type="text/javascript"></SCRIPT>
  
