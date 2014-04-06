@@ -1,7 +1,6 @@
 <?php
 include 'sql.php';
 header('Content-Type: text/html; charset=UTF-8'); 
-ini_set('default_charset','utf8');
 ?>
 <!DOCTYPE HTML public "-//W3C//DTD HTML 4.0 Transitional//EN">
 <!-- saved from url=(0068)http://www.geocodezip.com/v3_markers_normal_colored_infowindows.html -->
@@ -30,7 +29,7 @@ function mapa(pos){
 	var contenedor = document.getElementById("map_canvas");
 	var latitud = pos.coords.latitude;
 	var longitud = pos.coords.longitude;
-	var precision = pos.coords.accuracy;//
+	var precision = pos.coords.accuracy;
 		
 	var centro = new google.maps.LatLng(latitud, longitud);
 	initialize(centro, latitud, longitud);
@@ -156,7 +155,7 @@ var beaches = [
 <?php
 
 	if(isset($_GET['filtro'])){
-		$TQuery = mysql_query('SELECT '.$_GET['filtro'].' FROM eventos ORDER BY id ASC');
+		$TQuery = mysql_query('SELECT * FROM eventos WHERE '.$_GET['filtro'].' ORDER BY id ASC');
 		$num = 0;
 		while($rowQuery = mysql_fetch_array($TQuery)){
 			echo "['<b>".$rowQuery['titulo']."</b><br>".$rowQuery['descripcion']."', ".$rowQuery['latitud'].", ".$rowQuery['longitud'].", '".$rowQuery['tipo']."', ".$num."],";
@@ -199,7 +198,7 @@ function setMarkersUsr(map, latitud, longitud) {
 
 <?php
 	if(isset($_GET['filtro'])){
-		$TQuery = mysql_query('SELECT '.$_GET['filtro'].' FROM eventos ORDER BY id ASC');
+		$TQuery = mysql_query('SELECT * FROM eventos WHERE '.$_GET['filtro'].' ORDER BY id ASC');
 	}else{
 		$TQuery = mysql_query ('SELECT * FROM eventos ORDER BY id ASC');
 	}
@@ -227,6 +226,7 @@ function setMarkersUsr(map, latitud, longitud) {
 		</div>';
 		$num++;	
 	}
+
 ?>
 
 <script src="./JsGoogle/urchin.js" type="text/javascript"></SCRIPT>
